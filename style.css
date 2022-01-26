@@ -1,0 +1,33 @@
+.spinner {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.loader {
+	box-sizing: border-box;
+	display: block;
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	margin: 8px;
+	border: 8px solid black;
+	border-radius: 50%;
+	animation: rotate 0.7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+	border-color: black transparent transparent transparent;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}

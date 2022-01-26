@@ -5,10 +5,13 @@ const divEl = document.querySelector('.content')
 const url = 'https://simpsons-quotes-api.herokuapp.com/quotes'
 
 const apiSimpson = async () => {
+	showSpinner()
 	try {
 		const response = await axios.get(url)
-		console.log(response.data)
-
+		console.log(response)
+		if (response.status !== 200) {
+			throw new Error('Error to load')
+		}
 		const simpsonQuote = response.data
 
 		const newQuote = simpsonQuote
@@ -25,15 +28,44 @@ const apiSimpson = async () => {
 				return newHtml
 			})
 			.join(' ')
-
+		hideSpinner()
 		divEl.insertAdjacentHTML('afterbegin', newQuote)
-
-		if (response.statusCode !== 200) {
-			throw new Error('Error to load')
-		}
+		createElement()
 	} catch (error) {
 		console.log(error)
 	}
+}
+
+function createElement() {
+	const btn = document.createElement('button')
+	divEl.appendChild(btn)
+
+	btn.textContent = 'Random Quote'
+
+	btn.style.cssText = `
+    color : yellow;
+    background-color :red;
+    border:1px solid red;
+    padding : 5px;
+    border-radius : 5px;
+    `
+
+	btn.addEventListener('click', () => location.reload())
+}
+
+function showSpinner() {
+	const markup = `
+      <div class="spinner">
+        <div class='loader'>
+          </div>
+        </div>
+     `
+
+	document.body.insertAdjacentHTML('afterbegin', markup)
+}
+
+function hideSpinner() {
+	document.querySelector('.spinner').remove()
 }
 
 apiSimpson()
